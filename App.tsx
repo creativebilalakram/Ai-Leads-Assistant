@@ -14,17 +14,6 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Keyboard Navigation: Effortless progression
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && step >= 2 && step <= 8) {
-        // Logic handled by child components via button state
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [step]);
-
   const nextStep = useCallback(() => {
     if (step < TOTAL_STEPS) {
       setStep(prev => prev + 1);
@@ -53,24 +42,16 @@ const App: React.FC = () => {
     };
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      await fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      if (!response.ok) {
-        console.error('Webhook delivery encountered a non-200 status:', response.status);
-      }
     } catch (error) {
-      console.error('Critical failure sending data to webhook:', error);
+      console.error('Webhook error:', error);
     }
 
-    // Synthesis Simulation
-    await new Promise(resolve => setTimeout(resolve, 3200));
-
+    await new Promise(resolve => setTimeout(resolve, 2800));
     setIsSubmitting(false);
     setStep(9);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -83,24 +64,15 @@ const App: React.FC = () => {
   }, [step]);
 
   return (
-    <div className="min-h-[100dvh] flex flex-col selection:bg-teal-100 selection:text-teal-900 transition-colors duration-1000 relative overflow-x-hidden">
-      {/* Dynamic Progress Bar */}
-      {step > 1 && step < 9 && (
-        <ProgressHeader progress={currentProgress} />
-      )}
+    <div className="min-h-[100dvh] flex flex-col relative overflow-hidden bg-[#fcfdfe]">
+      {step > 1 && step < 9 && <ProgressHeader progress={currentProgress} />}
 
-      <main className="flex-grow flex items-center justify-center relative">
-        {/* Soft Background Globs - Adjusted for Mobile to prevent horizontal scroll */}
-        <div className="fixed top-[-5%] left-[-15%] w-[80%] md:w-[60%] h-[40%] md:h-[60%] bg-teal-200/15 rounded-full blur-[80px] md:blur-[140px] pointer-events-none z-0" />
-        <div className="fixed bottom-[-5%] right-[-15%] w-[80%] md:w-[50%] h-[40%] md:h-[50%] bg-blue-200/10 rounded-full blur-[70px] md:blur-[120px] pointer-events-none z-0" />
+      <main className="flex-grow flex items-center justify-center p-0 md:p-6 lg:p-12 relative z-10">
+        <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-teal-200/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-200/5 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="w-full max-w-2xl z-10 transition-all duration-700 ease-in-out md:p-6 lg:p-0">
-          {step === 1 && (
-            <div className="py-12 md:py-0">
-              <WelcomeStep onStart={nextStep} />
-            </div>
-          )}
-
+        <div className="w-full flex items-center justify-center transition-all duration-700">
+          {step === 1 && <WelcomeStep onStart={nextStep} />}
           {step >= 2 && step <= 8 && (
             <FormStep
               step={step}
@@ -111,12 +83,7 @@ const App: React.FC = () => {
               isSubmitting={isSubmitting}
             />
           )}
-
-          {step === 9 && (
-            <div className="py-12 md:py-0">
-              <SuccessStep formData={formData} />
-            </div>
-          )}
+          {step === 9 && <SuccessStep formData={formData} />}
         </div>
       </main>
     </div>
