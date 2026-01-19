@@ -19,6 +19,7 @@ export const FormStep: React.FC<FormStepProps> = ({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Scroll to top of the inner container on step change
     scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
@@ -31,7 +32,7 @@ export const FormStep: React.FC<FormStepProps> = ({
 
   const inputWrapper = "relative group";
   const inputIcon = "absolute left-5 top-[40px] md:top-[44px] text-slate-300 group-focus-within:text-slate-900 transition-colors duration-300";
-  const inputStyles = "w-full h-[52px] md:h-[58px] pl-12 pr-5 rounded-2xl border-2 border-slate-100 bg-white text-[14px] font-bold tracking-tight text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:ring-8 focus:ring-slate-900/5 transition-all duration-300 outline-none";
+  const inputStyles = "w-full h-[54px] md:h-[62px] pl-12 pr-5 rounded-2xl border-2 border-slate-100 bg-white text-[15px] font-bold tracking-tight text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:ring-8 focus:ring-slate-900/5 transition-all duration-300 outline-none";
   const labelStyles = "block text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 mb-2.5 ml-1";
   const helperStyles = "mt-2 ml-1 text-[11px] font-medium text-slate-400 leading-relaxed";
   
@@ -47,7 +48,7 @@ export const FormStep: React.FC<FormStepProps> = ({
                 <span className="text-[10px] font-black tracking-[0.4em] text-slate-300 uppercase">Phase 01 / Identity</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-[900] text-slate-900 tracking-tighter leading-none">Business <span className="italic font-light text-slate-400">Context</span></h2>
-              <p className="text-[13px] text-slate-500 font-medium">Let's establish your professional architecture.</p>
+              <p className="text-[14px] text-slate-500 font-medium">Let's establish your professional architecture.</p>
             </header>
             <div className="space-y-8">
               <div className={inputWrapper}>
@@ -121,9 +122,9 @@ export const FormStep: React.FC<FormStepProps> = ({
               </div>
               <h2 className="text-4xl md:text-5xl font-[900] text-slate-900 tracking-tighter leading-none">Current <span className="italic font-light text-slate-400">Stack</span></h2>
             </header>
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-3 pb-8">
               {['CRM Tools', 'Email Automation', 'WhatsApp Business', 'Google Sheets / Excel', 'Zapier / Make', 'Manual Processes'].map(tool => (
-                <button key={tool} onClick={() => toggleTech(tool)} className={`px-5 h-[56px] md:h-[62px] text-left rounded-2xl border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.98] ${formData.techStack.includes(tool) ? 'bg-slate-900 border-slate-900 text-white shadow-xl translate-x-1' : 'bg-white border-slate-50 hover:border-slate-200 text-slate-500'}`}>
+                <button key={tool} onClick={() => toggleTech(tool)} className={`px-5 h-[60px] md:h-[68px] text-left rounded-2xl border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.96] ${formData.techStack.includes(tool) ? 'bg-slate-900 border-slate-900 text-white shadow-xl translate-x-1' : 'bg-white border-slate-50 hover:border-slate-200 text-slate-500'}`}>
                   <span className="text-[14px] font-bold tracking-tight">{tool}</span>
                   <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${formData.techStack.includes(tool) ? 'bg-white' : 'bg-slate-50'}`}>
                     {formData.techStack.includes(tool) && <Check size={12} strokeWidth={4} className="text-slate-900" />}
@@ -175,10 +176,10 @@ export const FormStep: React.FC<FormStepProps> = ({
               </div>
               <h2 className="text-4xl md:text-5xl font-[900] text-slate-900 tracking-tighter leading-none">Final <span className="italic font-light text-slate-400">Protocol</span></h2>
             </header>
-            <div className="space-y-4">
+            <div className="space-y-4 pb-8">
               {[{ k: 'consentTransactional', t: 'Authorize strategic brief generation.', h: 'Necessary for the diagnostic report.' }, { k: 'consentMarketing', t: 'Receive periodic AI growth insights.', h: 'Optional industry updates.' }].map(c => (
                 <div key={c.k}>
-                  <button onClick={() => updateFormData({ [c.k]: !formData[c.k as keyof FormData] })} className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 flex items-center gap-5 active:scale-[0.985] text-left ${formData[c.k as keyof FormData] ? 'bg-slate-900 border-slate-900 text-white shadow-xl' : 'bg-white border-slate-50 hover:border-slate-200 text-slate-500'}`}>
+                  <button onClick={() => updateFormData({ [c.k]: !formData[c.k as keyof FormData] })} className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 flex items-center gap-5 active:scale-[0.98] text-left ${formData[c.k as keyof FormData] ? 'bg-slate-900 border-slate-900 text-white shadow-xl' : 'bg-white border-slate-50 hover:border-slate-200 text-slate-500'}`}>
                     <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 transition-all ${formData[c.k as keyof FormData] ? 'bg-white' : 'bg-slate-100'}`}>
                       {formData[c.k as keyof FormData] && <Check size={12} strokeWidth={4} className="text-slate-900" />}
                     </div>
@@ -206,21 +207,21 @@ export const FormStep: React.FC<FormStepProps> = ({
   };
 
   return (
-    <div className="flex-grow flex flex-col min-h-0 bg-white relative overflow-hidden">
+    <div className="flex-grow flex flex-col min-h-0 h-full bg-white relative overflow-hidden">
       {/* INTEGRATED BACKGROUND LAYER */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `radial-gradient(#000 1px, transparent 1px)`, backgroundSize: '32px 32px' }} />
       
-      {/* MAIN CONTENT AREA */}
+      {/* SCROLLABLE MAIN CONTENT */}
       <div 
         ref={scrollRef} 
-        className="flex-grow overflow-y-auto scrollbar-hide px-6 md:px-16 pt-10 md:pt-16 pb-24 md:pb-32 relative z-10 overscroll-contain"
+        className="flex-grow overflow-y-auto scrollbar-hide px-6 md:px-16 pt-10 md:pt-16 pb-12 relative z-10 overscroll-contain"
       >
         {content()}
       </div>
 
-      {/* INTEGRATED COMMAND BAR (Part of the Box) */}
-      <div className="absolute bottom-0 left-0 w-full px-6 md:px-16 py-8 md:py-10 bg-gradient-to-t from-white via-white/95 to-transparent z-20 pointer-events-none">
-        <div className="flex items-center justify-between gap-6 pointer-events-auto">
+      {/* COMMAND BAR - Now strictly at bottom using flex-shrink-0 */}
+      <div className="flex-shrink-0 w-full px-6 md:px-16 py-8 bg-white border-t border-slate-50 z-20">
+        <div className="flex items-center justify-between gap-6">
           <button 
             type="button"
             onClick={onBack} 
@@ -238,7 +239,7 @@ export const FormStep: React.FC<FormStepProps> = ({
             disabled={!valid() || isSubmitting}
             className={`flex-grow md:flex-grow-0 h-[60px] md:h-[68px] px-10 md:px-16 rounded-full font-black text-[12px] md:text-[14px] uppercase tracking-[0.3em] transition-all duration-500 flex items-center justify-center gap-4 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] active:scale-95 outline-none ${
               valid() && !isSubmitting 
-                ? 'bg-slate-900 text-white shadow-slate-900/40 hover:shadow-slate-900/50 hover:-translate-y-1' 
+                ? 'bg-slate-900 text-white shadow-slate-900/40 hover:shadow-slate-900/60 hover:-translate-y-1' 
                 : 'bg-slate-50 text-slate-200 cursor-not-allowed border border-slate-50'
             }`}
           >

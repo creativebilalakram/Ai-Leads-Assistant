@@ -19,13 +19,14 @@
       }
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f8fafc;
+        background-color: #ffffff;
         color: var(--brand-slate);
         min-height: 100dvh;
         margin: 0;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow: hidden;
+        /* Allow natural scroll on body but hide bar */
+        overflow-x: hidden;
       }
       
       .bg-aurora {
@@ -33,33 +34,45 @@
         inset: 0;
         z-index: -1;
         background: 
-          radial-gradient(circle at 0% 0%, rgba(15, 23, 42, 0.02) 0%, transparent 40%),
-          radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.01) 0%, transparent 40%),
-          #ffffff;
+          radial-gradient(circle at 20% 20%, rgba(15, 23, 42, 0.03) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(15, 23, 42, 0.02) 0%, transparent 50%),
+          #fcfcfc;
       }
 
       .app-glass {
-        background: #ffffff;
-        border: 1px solid #f1f5f9;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(241, 245, 249, 0.5);
         box-shadow: 
-          0 40px 100px -20px rgba(0, 0, 0, 0.03),
-          0 20px 40px -15px rgba(0, 0, 0, 0.01);
+          0 30px 60px -12px rgba(0, 0, 0, 0.05),
+          0 18px 36px -18px rgba(0, 0, 0, 0.03);
       }
 
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
       @keyframes slide-up {
-        from { opacity: 0; transform: translateY(12px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-scene { animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .animate-scene { animation: slide-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
       @media (min-width: 768px) {
-        .main-container { height: 780px; max-height: 85vh; border-radius: 2.5rem; }
+        .main-container { 
+          height: 800px; 
+          max-height: 90vh; 
+          border-radius: 3rem; 
+        }
       }
       @media (max-width: 767px) {
-        .main-container { height: 100dvh; border-radius: 0; border: none; }
+        .main-container { 
+          height: 100dvh; 
+          border-radius: 0; 
+          border: none;
+          box-shadow: none;
+          background: #ffffff;
+        }
       }
     </style>
     <script type="importmap">
