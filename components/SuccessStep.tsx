@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Check, Sparkles, Send, ArrowRight, UserCheck, Mail, Clock } from 'lucide-react';
+import { Check, Sparkles, ArrowRight, Layers, Mail } from 'lucide-react';
 import { FormData } from '../types';
 
 interface SuccessStepProps {
@@ -12,9 +12,9 @@ export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 1200),
-      setTimeout(() => setPhase(2), 2800),
-      setTimeout(() => setPhase(3), 4500),
+      setTimeout(() => setPhase(1), 1000),
+      setTimeout(() => setPhase(2), 2200),
+      setTimeout(() => setPhase(3), 3500),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -22,86 +22,70 @@ export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
   const firstName = formData.userName.split(' ')[0];
 
   return (
-    <div className="text-center animate-in fade-in zoom-in-95 duration-1000 flex flex-col items-center max-w-2xl mx-auto px-4 py-8 md:py-0">
-      
-      {/* User Icon Header */}
-      <div className="relative mb-8 md:mb-10">
-        <div className="absolute inset-0 bg-teal-500/15 blur-[40px] rounded-full animate-pulse" />
-        <div className="relative w-20 h-20 md:w-24 md:h-24 bg-white shadow-[0_20px_50px_-15px_rgba(20,184,166,0.15)] text-teal-600 rounded-[2rem] md:rounded-[2.5rem] border border-slate-50 flex items-center justify-center">
-          <UserCheck size={36} md:size={42} strokeWidth={1.5} className="animate-float" />
-        </div>
-      </div>
-
-      <h1 className="text-4xl md:text-6xl font-[900] text-slate-900 mb-6 tracking-tight leading-tight">
-        Assessment Received
-      </h1>
-      
-      <p className="text-base md:text-xl text-slate-500 mb-10 md:mb-14 max-w-xl mx-auto leading-relaxed font-medium">
-        Excellent, {firstName}. Our creative consultancy team is now reviewing your business architecture to develop a high-impact roadmap for <span className="text-slate-900 font-bold underline decoration-teal-500/20 underline-offset-4">Australia</span>.
-      </p>
-
-      {/* Progress Checklist Area */}
-      <div className="w-full max-w-md space-y-3.5 mb-14 md:mb-16">
-        {[
-          "Reviewing operational friction points...",
-          "Synthesizing high-ROI multipliers...",
-          "Finalizing your strategic brief..."
-        ].map((text, i) => (
-          <div 
-            key={i} 
-            className={`flex items-center gap-4 md:gap-5 p-5 md:p-6 rounded-[1.75rem] bg-white/70 backdrop-blur-xl border transition-all duration-1000 ${
-              phase >= i + 1 
-                ? 'opacity-100 translate-x-0 border-teal-500/20 shadow-xl shadow-teal-500/5' 
-                : 'opacity-20 -translate-x-4 border-slate-100'
-            }`}
-          >
-            <div className={`w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center text-white transition-all duration-1000 shrink-0 ${
-              phase >= i + 1 ? 'bg-teal-500 scale-110 shadow-lg shadow-teal-500/30' : 'bg-slate-100'
-            }`}>
-              <Check size={12} md:size={14} strokeWidth={4} />
-            </div>
-            <span className="text-[10px] md:text-xs font-black tracking-[0.2em] md:tracking-[0.25em] text-slate-500 uppercase text-left leading-none">
-              {text}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* Insight Quote Card (Matches image style) */}
-      <div className={`w-full transition-all duration-[1500ms] transform ease-out ${phase >= 3 ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
-        <div className="p-8 md:p-14 bg-gradient-to-br from-white via-white/95 to-slate-50/50 backdrop-blur-3xl rounded-[2.5rem] md:rounded-[3.5rem] border border-white shadow-[0_40px_100px_-20px_rgba(15,23,42,0.12)] text-slate-800 mb-12 md:mb-16 max-w-xl mx-auto relative group overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-teal-500/[0.03] rounded-full blur-3xl" />
-          
-          <div className="absolute top-6 right-8 text-teal-500/30">
-            <Sparkles size={24} className="animate-pulse" />
-          </div>
-
-          <p className="text-lg md:text-2xl leading-[1.6] italic font-semibold text-slate-700 relative z-10">
-            "We've identified <strong className="text-teal-600 font-[900]">multiple efficiency multipliers</strong> specific to your scale. Our team is refining your custom <span className="underline decoration-teal-500/40 underline-offset-8 decoration-[3px]">{formData.firstAutomationTarget || 'Customer Onboarding'}</span> strategy."
-          </p>
-          
-          <div className="mt-8 flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-teal-600 bg-teal-50/60 py-2.5 px-5 rounded-full w-fit mx-auto border border-teal-100/50 relative z-10 shadow-sm shadow-teal-500/5">
-            <Mail size={14} strokeWidth={3} />
-            Inbox Delivery Imminent
+    <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-8 md:px-16 pt-16 pb-16">
+      <div className="flex-grow flex flex-col items-center justify-center text-center">
+        <div className="relative mb-8">
+          <div className="absolute inset-0 bg-slate-900/5 blur-[50px] rounded-full animate-pulse" />
+          <div className="relative w-24 h-24 bg-white shadow-xl text-slate-900 rounded-[2.5rem] border border-slate-100 flex items-center justify-center">
+            <Layers size={40} strokeWidth={1} />
           </div>
         </div>
 
-        {/* Action Section (Clean & Secondary CTAs) */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 mb-10">
-          <button className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-teal-600/90 text-white rounded-full font-black text-xs uppercase tracking-[0.2em] hover:bg-teal-600 hover:shadow-[0_20px_40px_-10px_rgba(20,184,166,0.4)] transition-all duration-500 active:scale-95">
-            Check My Status
-            <Send size={14} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </button>
-          
-          <button className="group flex items-center gap-2.5 text-slate-400 font-black hover:text-slate-900 transition-all duration-300 text-xs tracking-[0.2em] uppercase">
-            Consultant Access
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1.5 text-slate-300 group-hover:text-teal-500" />
-          </button>
-        </div>
-
-        <p className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.4em] mb-12">
-          Thank you for choosing Lumina Strategic Services
+        <h1 className="text-4xl md:text-5xl font-[900] text-slate-900 mb-6 tracking-tighter leading-[1]">
+          Creative <span className="font-light italic text-slate-400">Analysis</span> Underway
+        </h1>
+        
+        <p className="text-sm md:text-lg text-slate-400 mb-10 max-w-sm mx-auto leading-relaxed font-medium">
+          Excellent, {firstName}. Creative CRM is distilling your data into a high-ROI automation architecture.
         </p>
+
+        <div className="w-full max-w-sm space-y-3 mb-12">
+          {[
+            "Calibrating system constraints...",
+            "Mapping automation multipliers...",
+            "Finalizing strategy brief..."
+          ].map((text, i) => (
+            <div 
+              key={i} 
+              className={`flex items-center gap-5 p-5 rounded-[2rem] bg-white border transition-all duration-700 ${
+                phase >= i + 1 
+                  ? 'opacity-100 translate-y-0 border-slate-900 shadow-lg' 
+                  : 'opacity-20 translate-y-2 border-slate-100'
+              }`}
+            >
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-white transition-all duration-700 shrink-0 ${
+                phase >= i + 1 ? 'bg-slate-900' : 'bg-slate-100'
+              }`}>
+                <Check size={12} strokeWidth={4} />
+              </div>
+              <span className="text-[10px] font-black tracking-[0.2em] text-slate-900 uppercase text-left leading-none">
+                {text}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {phase >= 3 && (
+          <div className="animate-fade-in w-full max-w-md">
+            <div className="p-10 bg-slate-900 rounded-[3rem] text-white relative overflow-hidden group">
+              <div className="absolute top-8 right-8 text-white/10">
+                <Sparkles size={24} />
+              </div>
+              <p className="text-lg md:text-xl leading-[1.4] italic font-medium text-slate-300 mb-8">
+                "Your scale indicates a <strong className="text-white font-[900]">critical leverage point</strong>. Our Sydney desk is prioritizing your {formData.firstAutomationTarget || 'workflow'} brief."
+              </p>
+              <div className="flex items-center justify-center gap-3 text-[9px] font-black uppercase tracking-[0.3em] text-slate-900 bg-white py-3.5 px-6 rounded-full w-fit mx-auto hover:scale-105 transition-transform duration-500">
+                <Mail size={14} strokeWidth={3} />
+                Strategic Brief Sent
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-12 flex flex-col items-center gap-6 opacity-20 grayscale">
+         <div className="h-px w-full bg-slate-200" />
+         <p className="text-[9px] font-black tracking-[0.4em] uppercase">CREATIVE CRM • SYDNEY</p>
       </div>
     </div>
   );
