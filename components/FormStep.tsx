@@ -29,10 +29,25 @@ export const FormStep: React.FC<FormStepProps> = ({
     updateFormData({ techStack: next });
   };
 
-  const inputWrapper = "relative group mb-9"; // Increased from mb-5 for better vertical gap
-  const inputIcon = "absolute left-6 top-[38px] md:top-[42px] text-slate-300 group-focus-within:text-slate-900 transition-colors duration-300";
-  const inputStyles = "w-full h-[54px] md:h-[60px] pl-14 pr-6 rounded-full border-2 border-slate-100 bg-white text-[14px] font-bold text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:bg-slate-50/30 transition-all duration-300 outline-none shadow-sm";
-  const labelStyles = "block text-[8px] font-black uppercase tracking-[0.25em] text-slate-600 mb-2.5 ml-2"; // Increased opacity and spacing
+  const inputWrapper = "relative group mb-9";
+  
+  const getFieldClasses = (val: string) => {
+    const base = "w-full h-[54px] md:h-[60px] pl-14 pr-6 rounded-full border-2 bg-white text-[14px] font-bold transition-all duration-300 outline-none shadow-sm";
+    if (val && val.trim().length > 0) {
+      return `${base} border-slate-900 text-slate-900 focus:ring-4 focus:ring-slate-900/5`;
+    }
+    return `${base} border-slate-100 text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:bg-slate-50/30`;
+  };
+
+  const getIconClasses = (val: string) => {
+    const base = "absolute left-6 top-[38px] md:top-[42px] transition-all duration-300";
+    if (val && val.trim().length > 0) {
+      return `${base} text-slate-900 scale-110`;
+    }
+    return `${base} text-slate-300 group-focus-within:text-slate-900`;
+  };
+
+  const labelStyles = "block text-[8px] font-black uppercase tracking-[0.25em] text-slate-600 mb-2.5 ml-2";
   
   const content = () => {
     const scene = "animate-fade-up w-full max-w-md mx-auto py-2";
@@ -55,13 +70,13 @@ export const FormStep: React.FC<FormStepProps> = ({
             <div className="space-y-4">
               <div className={inputWrapper}>
                 <label className={labelStyles}>Organization</label>
-                <Building2 size={16} className={inputIcon} />
-                <input type="text" value={formData.companyName} onChange={e => updateFormData({ companyName: e.target.value })} placeholder="Company Name" className={inputStyles} />
+                <Building2 size={16} className={getIconClasses(formData.companyName)} />
+                <input type="text" value={formData.companyName} onChange={e => updateFormData({ companyName: e.target.value })} placeholder="Company Name" className={getFieldClasses(formData.companyName)} />
               </div>
               <div className={inputWrapper}>
                 <label className={labelStyles}>Point of Contact</label>
-                <User size={16} className={inputIcon} />
-                <input type="text" value={formData.userName} onChange={e => updateFormData({ userName: e.target.value })} placeholder="Your Name" className={inputStyles} />
+                <User size={16} className={getIconClasses(formData.userName)} />
+                <input type="text" value={formData.userName} onChange={e => updateFormData({ userName: e.target.value })} placeholder="Your Name" className={getFieldClasses(formData.userName)} />
               </div>
               <CustomSelect label="Leadership Tier" value={formData.jobTitle} onChange={v => updateFormData({ jobTitle: v as JobTitle })} options={['Founder / Owner', 'Director', 'Operations Manager', 'Sales Manager', 'Marketing Manager', 'Other']} />
             </div>
@@ -74,18 +89,18 @@ export const FormStep: React.FC<FormStepProps> = ({
             <div className="space-y-4">
               <div className={inputWrapper}>
                 <label className={labelStyles}>Work Email</label>
-                <Mail size={16} className={inputIcon} />
-                <input type="email" value={formData.email} onChange={e => updateFormData({ email: e.target.value })} placeholder="email@company.com.au" className={inputStyles} />
+                <Mail size={16} className={getIconClasses(formData.email)} />
+                <input type="email" value={formData.email} onChange={e => updateFormData({ email: e.target.value })} placeholder="email@company.com.au" className={getFieldClasses(formData.email)} />
               </div>
               <div className={inputWrapper}>
                 <label className={labelStyles}>Contact Number</label>
-                <Phone size={16} className={inputIcon} />
-                <input type="tel" value={formData.phone} onChange={e => updateFormData({ phone: e.target.value })} placeholder="+61..." className={inputStyles} />
+                <Phone size={16} className={getIconClasses(formData.phone)} />
+                <input type="tel" value={formData.phone} onChange={e => updateFormData({ phone: e.target.value })} placeholder="+61..." className={getFieldClasses(formData.phone)} />
               </div>
               <div className={inputWrapper}>
                 <label className={labelStyles}>Website</label>
-                <Globe size={16} className={inputIcon} />
-                <input type="url" value={formData.website} onChange={e => updateFormData({ website: e.target.value })} placeholder="https://..." className={inputStyles} />
+                <Globe size={16} className={getIconClasses(formData.website)} />
+                <input type="url" value={formData.website} onChange={e => updateFormData({ website: e.target.value })} placeholder="https://..." className={getFieldClasses(formData.website)} />
               </div>
             </div>
           </div>
@@ -174,12 +189,12 @@ export const FormStep: React.FC<FormStepProps> = ({
     <div className="flex-grow flex flex-col h-full bg-white relative overflow-hidden">
       <div 
         ref={scrollRef} 
-        className="flex-grow overflow-y-auto scrollbar-hide px-6 md:px-16 pt-6 md:pt-12 pb-24 overscroll-contain"
+        className="flex-grow overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-6 md:pt-12 pb-24 overscroll-contain"
       >
         {content()}
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full px-6 md:px-16 py-4 md:py-6 bg-gradient-to-t from-white via-white/95 to-transparent z-20">
+      <div className="absolute bottom-0 left-0 w-full px-[13px] md:px-16 py-4 md:py-6 bg-gradient-to-t from-white via-white/95 to-transparent z-20">
         <div className="flex items-center justify-between gap-4">
           <button onClick={onBack} className="group flex items-center gap-3 text-slate-300 hover:text-slate-900 font-black text-[9px] uppercase tracking-widest transition-all active:scale-90 outline-none">
             <div className="w-10 h-10 rounded-full border-2 border-slate-50 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900 transition-all shadow-sm">

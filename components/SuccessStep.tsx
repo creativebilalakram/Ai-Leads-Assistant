@@ -22,7 +22,7 @@ export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
   const firstName = formData.userName.split(' ')[0] || 'User';
 
   return (
-    <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-6 md:px-16 pt-8 md:pt-16 pb-12">
+    <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-8 md:pt-16 pb-12">
       <div className="flex-grow flex flex-col items-center justify-center text-center">
         <div className="relative mb-6 md:mb-8">
           <div className="absolute inset-0 bg-slate-900/5 blur-[40px] md:blur-[50px] rounded-full animate-pulse" />

@@ -40,7 +40,7 @@ const App: React.FC = () => {
   const progress = useMemo(() => step === 1 ? 0 : step > 8 ? 100 : ((step - 1) / (TOTAL_STEPS - 1)) * 100, [step]);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4 md:p-12 overflow-hidden bg-[#f8fafc]">
+    <div className="min-h-screen w-full flex items-center justify-center p-[13px] md:p-12 overflow-hidden bg-[#f8fafc]">
       {step > 1 && step < 9 && <ProgressHeader progress={progress} />}
       
       <main className="w-full max-w-xl main-container app-glass md:rounded-[2.5rem] relative flex flex-col animate-fade-up overflow-hidden">

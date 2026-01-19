@@ -108,6 +108,8 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ options, value, onCh
     document.body
   );
 
+  const isCompleted = !!value;
+
   return (
     <div className="relative w-full text-left" ref={containerRef}>
       {label && (
@@ -120,13 +122,17 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ options, value, onCh
         type="button"
         onClick={() => setOpen(!open)}
         className={`group relative w-full h-[54px] md:h-[60px] flex items-center justify-between px-6 bg-white border-2 rounded-full cursor-pointer transition-all duration-300 outline-none ${
-          open ? 'border-slate-900 ring-4 ring-slate-900/5' : 'border-slate-100 hover:border-slate-300'
+          open 
+            ? 'border-slate-900 ring-4 ring-slate-900/5' 
+            : isCompleted 
+              ? 'border-slate-900 ring-1 ring-slate-900/5 shadow-sm' 
+              : 'border-slate-100 hover:border-slate-300'
         }`}
       >
         <span className={`text-[13px] font-bold tracking-tight truncate ${!value ? 'text-slate-300' : 'text-slate-900'}`}>
           {current ? current.label : placeholder}
         </span>
-        <div className={`transition-all duration-300 flex items-center justify-center ${open ? 'rotate-180 text-slate-900' : 'text-slate-300'}`}>
+        <div className={`transition-all duration-300 flex items-center justify-center ${open ? 'rotate-180 text-slate-900' : isCompleted ? 'text-slate-900' : 'text-slate-300'}`}>
           <ChevronDown size={16} strokeWidth={2.5} />
         </div>
       </button>

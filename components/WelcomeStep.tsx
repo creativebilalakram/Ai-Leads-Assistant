@@ -8,7 +8,7 @@ interface WelcomeStepProps {
 
 export const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart }) => {
   return (
-    <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-6 md:px-12 pt-8 md:pt-14 pb-8 md:pb-12">
+    <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-[13px] md:px-12 pt-8 md:pt-14 pb-8 md:pb-12">
       <div className="flex-grow flex flex-col items-center justify-center text-center max-w-2xl mx-auto w-full">
         {/* Abstract Logo Mark */}
         <div className="relative mb-6 md:mb-8">
