@@ -96,7 +96,7 @@ export const FormStep: React.FC<FormStepProps> = ({
                 <input type="url" value={formData.website} onChange={e => updateFormData({ website: e.target.value })} placeholder="https://..." className={inputClass} />
               </div>
               <div className={consultantNoteClass}>
-                <Info size={14} className="text-teal-500 mt-0.5 shrink-0" />
+                <div className="p-1 bg-white rounded-full text-teal-500"><Info size={12} strokeWidth={3} /></div>
                 <p className="text-[10px] md:text-[13px] text-teal-800/60 font-medium italic">Details used strictly for report delivery.</p>
               </div>
             </div>
@@ -139,7 +139,7 @@ export const FormStep: React.FC<FormStepProps> = ({
                 <Settings2 size={10} />
                 Tech Stack
               </div>
-              <h2 className="text-2xl md:text-4xl font-[900] text-slate-900 tracking-tight leading-tight">Digital Infrastructure</h2>
+              <h2 className="text-2xl md:text-4xl font-[900] text-slate-900 tracking-tight leading-tight">Infrastructure</h2>
             </header>
 
             <div className="grid grid-cols-1 gap-2.5 md:gap-3.5">
@@ -288,11 +288,16 @@ export const FormStep: React.FC<FormStepProps> = ({
     <div className="relative w-full max-w-xl mx-auto h-[100dvh] md:h-auto flex flex-col safe-pb md:py-12">
       <div className="glass-card md:rounded-[2.5rem] flex flex-col h-full md:min-h-[700px] shadow-2xl md:border border-white/80 overflow-hidden relative">
         
-        <div className="relative flex-grow scrollbar-hide overflow-y-auto px-6 md:px-12 pt-10 md:pt-14 pb-40 md:pb-52">
+        {/* Scroll area with massive bottom padding to allow absolute dropdowns to breathe */}
+        <div 
+          ref={scrollContainerRef}
+          className="relative flex-grow scrollbar-hide overflow-y-auto overflow-x-visible px-6 md:px-12 pt-10 md:pt-14 pb-64 md:pb-72"
+        >
           {renderFields()}
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 z-50 p-6 md:p-10 bg-gradient-to-t from-white via-white/95 to-transparent flex flex-col md:flex-row items-center justify-between gap-4 border-t border-slate-100/50 backdrop-blur-xl">
+        {/* Navigation Bar: Low z-index so dropdowns float over it */}
+        <div className="absolute bottom-0 left-0 right-0 z-[40] p-6 md:p-10 bg-gradient-to-t from-white via-white/95 to-transparent flex flex-col md:flex-row items-center justify-between gap-4 border-t border-slate-100/50 backdrop-blur-xl">
            <button
              onClick={onBack}
              className="group flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-slate-900 transition-all font-black text-[9px] md:text-[10px] tracking-widest uppercase active:scale-95"
@@ -311,7 +316,7 @@ export const FormStep: React.FC<FormStepProps> = ({
              }`}
            >
              {isSubmitting ? (
-               <Loader2 className="animate-spin" size={20} />
+               <div className="flex items-center gap-2"><Loader2 className="animate-spin" size={18} /> Processing...</div>
              ) : (
                <div className="flex items-center gap-3 tracking-tight text-base md:text-lg">
                  {step === 8 ? 'Analyze Business' : 'Continue'}
