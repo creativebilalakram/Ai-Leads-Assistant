@@ -22,8 +22,8 @@ export type MonthlyRevenue =
   | 'Scaled ($1M+)';
 
 export type ImplementationTimeline = 
-  | 'Urgent – This month'
-  | 'Soon – 1–2 months'
+  | 'Urgent – Need solution this month'
+  | 'Soon – Within 1–2 months'
   | 'Planning – 3–6 months'
   | 'Exploring – Just researching';
 

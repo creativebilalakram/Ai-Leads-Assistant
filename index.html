@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>AI Automation Assessment | Lumina</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,8 +19,11 @@
         background-image: var(--bg-gradient);
         background-attachment: fixed;
         color: #0f172a;
-        min-height: 100vh;
+        min-height: 100dvh;
         margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
       }
       
       /* Subtle noise texture for premium look */
@@ -47,8 +50,8 @@
       
       .glass-card {
         background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
         border: 1px solid rgba(255, 255, 255, 0.6);
       }
       
@@ -65,7 +68,7 @@
       input:focus {
         outline: none;
         border-color: #14b8a6;
-        box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.08);
+        box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.05);
       }
 
       /* Fix Browser Autofill Background */
@@ -80,10 +83,18 @@
       }
 
       /* Mobile Safe Area Fixes */
-      @supports (padding: env(safe-area-inset-bottom)) {
-        .safe-pb {
-          padding-bottom: env(safe-area-inset-bottom);
-        }
+      .safe-pb {
+        padding-bottom: env(safe-area-inset-bottom, 1.5rem);
+      }
+      .safe-pt {
+        padding-top: env(safe-area-inset-top, 1rem);
+      }
+      
+      /* Hide arrows in Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     </style>
   <script type="importmap">

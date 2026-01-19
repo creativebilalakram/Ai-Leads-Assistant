@@ -7,6 +7,7 @@ import { ProgressHeader } from './components/ProgressHeader';
 import { FormData, INITIAL_FORM_DATA } from './types';
 
 const TOTAL_STEPS = 8;
+const WEBHOOK_URL = 'https://n8n-n8n.oborax.easypanel.host/webhook/alileadassistant';
 
 const App: React.FC = () => {
   const [step, setStep] = useState<number>(1);
@@ -17,7 +18,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && step >= 2 && step <= 8) {
-        // Validation check is handled in FormStep
+        // Logic handled by child components via button state
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -44,8 +45,32 @@ const App: React.FC = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Consultant Review Synthesis Simulation
-    await new Promise(resolve => setTimeout(resolve, 3800));
+    
+    const payload = {
+      ...formData,
+      submittedAt: new Date().toISOString(),
+      source: 'Lumina AI Assessment'
+    };
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        console.error('Webhook delivery encountered a non-200 status:', response.status);
+      }
+    } catch (error) {
+      console.error('Critical failure sending data to webhook:', error);
+    }
+
+    // Synthesis Simulation
+    await new Promise(resolve => setTimeout(resolve, 3200));
+
     setIsSubmitting(false);
     setStep(9);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,20 +83,22 @@ const App: React.FC = () => {
   }, [step]);
 
   return (
-    <div className="min-h-screen flex flex-col selection:bg-teal-100 selection:text-teal-900 transition-colors duration-1000">
+    <div className="min-h-[100dvh] flex flex-col selection:bg-teal-100 selection:text-teal-900 transition-colors duration-1000 relative overflow-x-hidden">
       {/* Dynamic Progress Bar */}
       {step > 1 && step < 9 && (
         <ProgressHeader progress={currentProgress} />
       )}
 
-      <main className="flex-grow flex items-center justify-center p-4 md:p-12 relative">
-        {/* Soft Background Globs */}
-        <div className="fixed top-[-10%] left-[-10%] w-[60%] h-[60%] bg-teal-200/20 rounded-full blur-[100px] md:blur-[140px] pointer-events-none z-0" />
-        <div className="fixed bottom-[-5%] right-[-5%] w-[50%] h-[50%] bg-blue-200/15 rounded-full blur-[90px] md:blur-[120px] pointer-events-none z-0" />
+      <main className="flex-grow flex items-center justify-center relative">
+        {/* Soft Background Globs - Adjusted for Mobile to prevent horizontal scroll */}
+        <div className="fixed top-[-5%] left-[-15%] w-[80%] md:w-[60%] h-[40%] md:h-[60%] bg-teal-200/15 rounded-full blur-[80px] md:blur-[140px] pointer-events-none z-0" />
+        <div className="fixed bottom-[-5%] right-[-15%] w-[80%] md:w-[50%] h-[40%] md:h-[50%] bg-blue-200/10 rounded-full blur-[70px] md:blur-[120px] pointer-events-none z-0" />
 
-        <div className="w-full max-w-2xl z-10 transition-all duration-700 ease-in-out py-8 md:py-0">
+        <div className="w-full max-w-2xl z-10 transition-all duration-700 ease-in-out md:p-6 lg:p-0">
           {step === 1 && (
-            <WelcomeStep onStart={nextStep} />
+            <div className="py-12 md:py-0">
+              <WelcomeStep onStart={nextStep} />
+            </div>
           )}
 
           {step >= 2 && step <= 8 && (
@@ -86,7 +113,9 @@ const App: React.FC = () => {
           )}
 
           {step === 9 && (
-            <SuccessStep formData={formData} />
+            <div className="py-12 md:py-0">
+              <SuccessStep formData={formData} />
+            </div>
           )}
         </div>
       </main>
