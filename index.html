@@ -26,7 +26,6 @@
         overflow-x: hidden;
       }
       
-      /* Subtle noise texture for premium look */
       body::before {
         content: "";
         position: fixed;
@@ -40,13 +39,8 @@
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
 
-      .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-      }
-      .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       
       .glass-card {
         background: rgba(255, 255, 255, 0.75);
@@ -60,55 +54,33 @@
         50% { transform: translateY(-8px); }
         100% { transform: translateY(0px); }
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
+      .animate-float { animation: float 6s ease-in-out infinite; }
 
-      /* Premium Input Focus */
       input:focus {
         outline: none;
         border-color: #14b8a6;
         box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.05);
       }
 
-      /* Fix Browser Autofill Background */
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover, 
-      input:-webkit-autofill:focus, 
-      input:-webkit-autofill:active{
-          -webkit-box-shadow: 0 0 0 1000px #f8fafc inset !important;
-          -webkit-text-fill-color: #0f172a !important;
-          transition: background-color 5000s ease-in-out 0s;
-          font-weight: 600 !important;
-      }
-
-      /* Mobile Safe Area Fixes */
-      .safe-pb {
-        padding-bottom: env(safe-area-inset-bottom, 1.5rem);
-      }
-      .safe-pt {
-        padding-top: env(safe-area-inset-top, 1rem);
-      }
-      
-      /* Hide arrows in Chrome, Safari, Edge, Opera */
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+      .safe-pb { padding-bottom: env(safe-area-inset-bottom, 1.5rem); }
+      .safe-pt { padding-top: env(safe-area-inset-top, 1rem); }
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
+    <!-- CRITICAL: Entry point script to prevent white screen -->
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
