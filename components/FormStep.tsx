@@ -19,6 +19,7 @@ export const FormStep: React.FC<FormStepProps> = ({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Reset scroll position on step change
     scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [step]);
 
@@ -186,37 +187,42 @@ export const FormStep: React.FC<FormStepProps> = ({
   };
 
   return (
-    <div className="flex-grow flex flex-col h-full bg-white relative overflow-hidden">
+    <div className="flex-grow flex flex-col h-full bg-white relative">
+      {/* Content Area - Added pb-32 to ensure text isn't hidden by the floating dock */}
       <div 
         ref={scrollRef} 
-        className="flex-grow overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-6 md:pt-12 pb-24 overscroll-contain"
+        className="flex-grow overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-6 md:pt-12 pb-32 overscroll-contain"
       >
         {content()}
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full px-[13px] md:px-16 py-4 md:py-6 bg-gradient-to-t from-white via-white/95 to-transparent z-20">
-        <div className="flex items-center justify-between gap-4">
-          <button onClick={onBack} className="group flex items-center gap-3 text-slate-300 hover:text-slate-900 font-black text-[9px] uppercase tracking-widest transition-all active:scale-90 outline-none">
-            <div className="w-10 h-10 rounded-full border-2 border-slate-50 flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900 transition-all shadow-sm">
-              <ArrowLeft size={14} strokeWidth={3} />
-            </div>
-            <span className="hidden sm:inline">Back</span>
+      {/* Stable Navigation Dock */}
+      <div className="sticky bottom-0 left-0 w-full px-[13px] md:px-16 py-5 md:py-8 bg-white/90 backdrop-blur-xl border-t border-slate-100/50 z-30 shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.05)]">
+        <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
+          {/* Back Button - Icon focused for speed */}
+          <button 
+            onClick={onBack} 
+            className="group flex items-center justify-center w-[56px] h-[56px] rounded-full border-2 border-slate-50 text-slate-300 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-90 outline-none flex-shrink-0"
+            title="Go Back"
+          >
+            <ArrowLeft size={20} strokeWidth={3} />
           </button>
           
+          {/* Main Action Button - Expanded for Mobile Stability */}
           <button
             onClick={onNext}
             disabled={!valid() || isSubmitting}
-            className={`flex-grow sm:flex-grow-0 h-[56px] px-10 rounded-full font-black text-[11px] uppercase tracking-[0.3em] transition-all duration-500 flex items-center justify-center gap-4 outline-none ${
+            className={`flex-grow h-[56px] px-8 rounded-full font-black text-[11px] md:text-[12px] uppercase tracking-[0.25em] transition-all duration-500 flex items-center justify-center gap-3 outline-none ${
               valid() && !isSubmitting 
                 ? 'bg-slate-900 text-white shadow-xl shadow-slate-900/20 hover:scale-[1.02] active:scale-[0.98]' 
-                : 'bg-slate-50 text-slate-200 cursor-not-allowed border border-slate-50'
+                : 'bg-slate-50 text-slate-200 cursor-not-allowed border border-slate-100'
             }`}
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" size={20} />
             ) : (
               <>
-                <span>{step === 8 ? 'Build Report' : 'Continue'}</span>
+                <span className="truncate">{step === 8 ? 'Build Report' : 'Next Step'}</span>
                 <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-1" />
               </>
             )}
