@@ -33,11 +33,11 @@ export const FormStep: React.FC<FormStepProps> = ({
   const inputWrapper = "relative group mb-9";
   
   const getFieldClasses = (val: string) => {
-    const base = "w-full h-[54px] md:h-[60px] pl-14 pr-6 rounded-full border-2 bg-white text-[14px] font-bold transition-all duration-300 outline-none shadow-sm";
+    const base = "w-full h-[54px] md:h-[60px] pl-14 pr-6 rounded-full border-2 bg-white/60 backdrop-blur-sm text-[14px] font-bold transition-all duration-300 outline-none shadow-sm";
     if (val && val.trim().length > 0) {
       return `${base} border-slate-900 text-slate-900 focus:ring-4 focus:ring-slate-900/5`;
     }
-    return `${base} border-slate-100 text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:bg-slate-50/30`;
+    return `${base} border-slate-100 text-slate-900 placeholder:text-slate-200 focus:border-slate-900 focus:bg-white`;
   };
 
   const getIconClasses = (val: string) => {
@@ -122,7 +122,7 @@ export const FormStep: React.FC<FormStepProps> = ({
             {header(<Settings2 size={16} />, "Section 4", "Current Stack", "Tools currently powering your workflow.")}
             <div className="grid grid-cols-1 gap-3 mb-10">
               {['CRM (HubSpot, Salesforce, etc)', 'Email Marketing (Mailchimp, ActiveCampaign, etc)', 'WhatsApp Business', 'Google Sheets / Excel', 'Zapier / Make', 'None – Manual Process', 'Other'].map(tool => (
-                <button key={tool} onClick={() => toggleTech(tool)} className={`px-6 h-[58px] text-left rounded-full border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.97] ${formData.techStack.includes(tool) ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white border-slate-100 hover:border-slate-300 text-slate-500'}`}>
+                <button key={tool} onClick={() => toggleTech(tool)} className={`px-6 h-[58px] text-left rounded-full border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.97] ${formData.techStack.includes(tool) ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white/60 backdrop-blur-sm border-slate-100 hover:border-slate-300 text-slate-500'}`}>
                   <span className="text-[13px] font-bold">{tool}</span>
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${formData.techStack.includes(tool) ? 'bg-white' : 'bg-slate-50'}`}>
                     {formData.techStack.includes(tool) && <Check size={10} strokeWidth={4} className="text-slate-900" />}
@@ -159,7 +159,7 @@ export const FormStep: React.FC<FormStepProps> = ({
             <div className="space-y-5 pb-8">
               {[{ k: 'consentTransactional', t: 'I agree to receive transactional messages (appointments, updates, etc).', h: 'Required for processing.' }, { k: 'consentMarketing', t: 'I agree to receive marketing and follow-up messages.', h: 'Optional monthly insights.' }].map(c => (
                 <div key={c.k} className="group">
-                  <button onClick={() => updateFormData({ [c.k]: !formData[c.k as keyof FormData] })} className={`w-full p-5 rounded-[2rem] border-2 transition-all duration-300 flex items-center gap-5 active:scale-[0.98] text-left ${formData[c.k as keyof FormData] ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white border-slate-100 hover:border-slate-300 text-slate-500'}`}>
+                  <button onClick={() => updateFormData({ [c.k]: !formData[c.k as keyof FormData] })} className={`w-full p-5 rounded-[2rem] border-2 transition-all duration-300 flex items-center gap-5 active:scale-[0.98] text-left ${formData[c.k as keyof FormData] ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white/60 backdrop-blur-sm border-slate-100 hover:border-slate-300 text-slate-500'}`}>
                     <div className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 transition-all ${formData[c.k as keyof FormData] ? 'bg-white' : 'bg-slate-100 group-hover:bg-slate-200'}`}>
                       {formData[c.k as keyof FormData] && <Check size={10} strokeWidth={4} className="text-slate-900" />}
                     </div>
@@ -187,7 +187,7 @@ export const FormStep: React.FC<FormStepProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col h-full w-full bg-white overflow-hidden">
+    <div className="relative flex flex-col h-full w-full bg-transparent overflow-hidden">
       {/* 
           Main Scrollable Area. 
           'pb-32' ensures content doesn't get hidden behind the fixed footer.
@@ -203,12 +203,12 @@ export const FormStep: React.FC<FormStepProps> = ({
           Permanently Fixed Navigation Dock.
           'absolute bottom-0' ensures it is strictly locked to the bottom of the container.
       */}
-      <div className="absolute bottom-0 left-0 w-full px-[13px] md:px-16 py-5 md:py-6 bg-white border-t border-slate-100 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] pb-safe">
+      <div className="absolute bottom-0 left-0 w-full px-[13px] md:px-16 py-5 md:py-6 bg-white/40 backdrop-blur-2xl border-t border-white/20 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] pb-safe">
         <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
           {/* Compact Back Button */}
           <button 
             onClick={onBack} 
-            className="group flex items-center justify-center w-[48px] h-[48px] rounded-full border-2 border-slate-50 text-slate-300 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-90 outline-none flex-shrink-0"
+            className="group flex items-center justify-center w-[48px] h-[48px] rounded-full border-2 border-white/20 text-slate-400 hover:text-slate-900 hover:bg-white/60 transition-all active:scale-90 outline-none flex-shrink-0"
             title="Go Back"
           >
             <ArrowLeft size={18} strokeWidth={3} />
@@ -221,7 +221,7 @@ export const FormStep: React.FC<FormStepProps> = ({
             className={`flex-grow h-[48px] px-7 rounded-full font-black text-[10px] md:text-[11px] uppercase tracking-[0.25em] transition-all duration-500 flex items-center justify-center gap-2.5 outline-none ${
               valid() && !isSubmitting 
                 ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10 active:scale-[0.98]' 
-                : 'bg-slate-50 text-slate-200 cursor-not-allowed border border-slate-100'
+                : 'bg-slate-400/10 text-slate-300 cursor-not-allowed border border-white/10'
             }`}
           >
             {isSubmitting ? (

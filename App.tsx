@@ -40,19 +40,10 @@ const App: React.FC = () => {
   const progress = useMemo(() => step === 1 ? 0 : step > 8 ? 100 : ((step - 1) / (TOTAL_STEPS - 1)) * 100, [step]);
 
   return (
-    /* 
-       Wrapper: No padding on mobile (p-0), large padding on desktop (md:p-12).
-       This ensures the form is full-screen on mobile.
-    */
-    <div className="h-[100dvh] w-full flex items-center justify-center p-0 md:p-12 overflow-hidden bg-white md:bg-[#f8fafc]">
+    <div className="h-[100dvh] w-full flex items-center justify-center p-0 md:p-12 overflow-hidden bg-transparent">
       {step > 1 && step < 9 && <ProgressHeader progress={progress} />}
       
-      {/* 
-          Main Container: 
-          - Mobile: Full width/height, no borders, no shadow (bg-white).
-          - Desktop: Fixed max-width/height, rounded corners, border, and shadow.
-      */}
-      <main className="w-full max-w-xl h-full md:h-[800px] md:max-h-[85vh] bg-white md:rounded-[2.5rem] md:border md:border-white md:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] relative flex flex-col animate-fade-up overflow-hidden">
+      <main className="w-full max-w-xl h-full md:h-[800px] md:max-h-[85vh] bg-white/70 backdrop-blur-3xl md:bg-white/80 md:rounded-[2.5rem] md:border md:border-white/50 md:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] relative flex flex-col animate-fade-up overflow-hidden">
         {step === 1 && <WelcomeStep onStart={nextStep} />}
         {step >= 2 && step <= 8 && (
           <FormStep
