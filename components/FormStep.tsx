@@ -187,43 +187,49 @@ export const FormStep: React.FC<FormStepProps> = ({
   };
 
   return (
-    <div className="flex-grow flex flex-col h-full bg-white relative">
-      {/* Content Area - Added pb-32 to ensure text isn't hidden by the floating dock */}
+    <div className="relative flex flex-col h-full w-full bg-white overflow-hidden">
+      {/* 
+          Main Scrollable Area. 
+          'pb-32' ensures content doesn't get hidden behind the fixed footer.
+      */}
       <div 
         ref={scrollRef} 
-        className="flex-grow overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-6 md:pt-12 pb-32 overscroll-contain"
+        className="flex-grow overflow-y-auto scrollbar-hide px-[13px] md:px-16 pt-8 md:pt-14 pb-32 overscroll-contain"
       >
         {content()}
       </div>
 
-      {/* Stable Navigation Dock */}
-      <div className="sticky bottom-0 left-0 w-full px-[13px] md:px-16 py-5 md:py-8 bg-white/90 backdrop-blur-xl border-t border-slate-100/50 z-30 shadow-[0_-20px_50px_-10px_rgba(0,0,0,0.05)]">
-        <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
-          {/* Back Button - Icon focused for speed */}
+      {/* 
+          Permanently Fixed Navigation Dock.
+          'absolute bottom-0' ensures it is strictly locked to the bottom of the container.
+      */}
+      <div className="absolute bottom-0 left-0 w-full px-[13px] md:px-16 py-5 md:py-6 bg-white border-t border-slate-100 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] pb-safe">
+        <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
+          {/* Compact Back Button */}
           <button 
             onClick={onBack} 
-            className="group flex items-center justify-center w-[56px] h-[56px] rounded-full border-2 border-slate-50 text-slate-300 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-90 outline-none flex-shrink-0"
+            className="group flex items-center justify-center w-[48px] h-[48px] rounded-full border-2 border-slate-50 text-slate-300 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-90 outline-none flex-shrink-0"
             title="Go Back"
           >
-            <ArrowLeft size={20} strokeWidth={3} />
+            <ArrowLeft size={18} strokeWidth={3} />
           </button>
           
-          {/* Main Action Button - Expanded for Mobile Stability */}
+          {/* Compact Main Action Button */}
           <button
             onClick={onNext}
             disabled={!valid() || isSubmitting}
-            className={`flex-grow h-[56px] px-8 rounded-full font-black text-[11px] md:text-[12px] uppercase tracking-[0.25em] transition-all duration-500 flex items-center justify-center gap-3 outline-none ${
+            className={`flex-grow h-[48px] px-7 rounded-full font-black text-[10px] md:text-[11px] uppercase tracking-[0.25em] transition-all duration-500 flex items-center justify-center gap-2.5 outline-none ${
               valid() && !isSubmitting 
-                ? 'bg-slate-900 text-white shadow-xl shadow-slate-900/20 hover:scale-[1.02] active:scale-[0.98]' 
+                ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10 active:scale-[0.98]' 
                 : 'bg-slate-50 text-slate-200 cursor-not-allowed border border-slate-100'
             }`}
           >
             {isSubmitting ? (
-              <Loader2 className="animate-spin" size={20} />
+              <Loader2 className="animate-spin" size={18} />
             ) : (
               <>
                 <span className="truncate">{step === 8 ? 'Build Report' : 'Next Step'}</span>
-                <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={16} strokeWidth={3} />
               </>
             )}
           </button>
