@@ -56,13 +56,22 @@ export const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart }) => {
           ))}
         </div>
 
-        {/* CTA Button */}
+        {/* CTA Button - Resized and Enhanced with Light Effects */}
         <button
           onClick={onStart}
-          className="group w-full md:max-w-[340px] h-[58px] md:h-[72px] bg-slate-900 text-white rounded-full font-black text-sm md:text-base shadow-xl shadow-slate-900/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-700 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-4 select-none outline-none"
+          className="group relative w-[240px] md:w-[320px] h-[52px] md:h-[64px] bg-slate-900 text-white rounded-full font-black text-[11px] md:text-sm shadow-xl shadow-slate-900/20 hover:shadow-slate-900/40 transition-all duration-500 hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-4 select-none outline-none overflow-hidden mx-auto"
         >
-          <span className="tracking-[0.15em] uppercase">Start Assessment</span>
-          <ArrowRight size={18} className="transition-transform group-hover:translate-x-2" strokeWidth={3} />
+          {/* Shimmer / Shine Effect */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-full">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shine" />
+          </div>
+
+          {/* Button Content */}
+          <span className="relative z-10 tracking-[0.2em] uppercase">Start Assessment</span>
+          <ArrowRight size={18} className="relative z-10 transition-transform group-hover:translate-x-2" strokeWidth={3} />
+          
+          {/* Subtle Inner Glow on Hover */}
+          <div className="absolute inset-0 bg-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-1" />
         </button>
       </div>
       
