@@ -1,21 +1,26 @@
 
 import React from 'react';
-import { ShieldCheck, Zap, Timer, Layers, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Zap, Timer, ArrowRight } from 'lucide-react';
 
 interface WelcomeStepProps {
   onStart: () => void;
 }
 
 export const WelcomeStep: React.FC<WelcomeStepProps> = ({ onStart }) => {
+  const brandLogo = "https://creativebilal.com/wp-content/uploads/2025/12/Black-Blue-Minimalist-Modern-Initial-Font-Logo.png";
+
   return (
     <div className="h-full flex flex-col overflow-y-auto scrollbar-hide px-[13px] md:px-12 pt-8 md:pt-14 pb-8 md:pb-12">
       <div className="flex-grow flex flex-col items-center justify-center text-center max-w-2xl mx-auto w-full">
-        {/* Abstract Logo Mark */}
+        {/* Brand Logo Mark */}
         <div className="relative mb-6 md:mb-8">
           <div className="absolute inset-0 bg-slate-900/5 blur-[40px] md:blur-[60px] rounded-full scale-[1.5]" />
-          <div className="relative w-14 h-14 md:w-20 md:h-20 bg-white shadow-2xl rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 flex items-center justify-center group transition-transform duration-700 hover:rotate-[10deg]">
-            <Layers size={24} className="text-slate-900 md:hidden" strokeWidth={1.5} />
-            <Layers size={32} className="text-slate-900 hidden md:block" strokeWidth={1.2} />
+          <div className="relative w-16 h-16 md:w-24 md:h-24 bg-white shadow-2xl rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 flex items-center justify-center group transition-transform duration-700 hover:rotate-[8deg] p-3 md:p-4">
+            <img 
+              src={brandLogo} 
+              alt="Creative CRM Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
         

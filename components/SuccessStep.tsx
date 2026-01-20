@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Check, Sparkles, Layers, Mail } from 'lucide-react';
+import { Check, Sparkles, Mail } from 'lucide-react';
 import { FormData } from '../types';
 
 interface SuccessStepProps {
@@ -9,6 +9,7 @@ interface SuccessStepProps {
 
 export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
   const [phase, setPhase] = useState(0);
+  const brandLogo = "https://creativebilal.com/wp-content/uploads/2025/12/Black-Blue-Minimalist-Modern-Initial-Font-Logo.png";
 
   useEffect(() => {
     const timers = [
@@ -26,9 +27,12 @@ export const SuccessStep: React.FC<SuccessStepProps> = ({ formData }) => {
       <div className="flex-grow flex flex-col items-center justify-center text-center">
         <div className="relative mb-6 md:mb-8">
           <div className="absolute inset-0 bg-slate-900/5 blur-[40px] md:blur-[50px] rounded-full animate-pulse" />
-          <div className="relative w-16 h-16 md:w-24 md:h-24 bg-white shadow-xl text-slate-900 rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 flex items-center justify-center">
-            <Layers size={32} className="md:hidden" strokeWidth={1.5} />
-            <Layers size={40} className="hidden md:block" strokeWidth={1} />
+          <div className="relative w-20 h-20 md:w-28 md:h-28 bg-white shadow-xl text-slate-900 rounded-[2rem] md:rounded-[3rem] border border-slate-100 flex items-center justify-center p-4 md:p-6">
+            <img 
+              src={brandLogo} 
+              alt="Creative CRM Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
         </div>
 

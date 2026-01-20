@@ -66,7 +66,7 @@ export const FormStep: React.FC<FormStepProps> = ({
       case 2:
         return (
           <div className={scene}>
-            {header(<Building2 size={16} />, "Phase 01 / Identity", "Business Context", "Establishing your professional profile.")}
+            {header(<Building2 size={16} />, "Section 1", "Business Info", "Defining your organization's core profile.")}
             <div className="space-y-4">
               <div className={inputWrapper}>
                 <label className={labelStyles}>Organization</label>
@@ -74,18 +74,18 @@ export const FormStep: React.FC<FormStepProps> = ({
                 <input type="text" value={formData.companyName} onChange={e => updateFormData({ companyName: e.target.value })} placeholder="Company Name" className={getFieldClasses(formData.companyName)} />
               </div>
               <div className={inputWrapper}>
-                <label className={labelStyles}>Point of Contact</label>
+                <label className={labelStyles}>Your Name</label>
                 <User size={16} className={getIconClasses(formData.userName)} />
-                <input type="text" value={formData.userName} onChange={e => updateFormData({ userName: e.target.value })} placeholder="Your Name" className={getFieldClasses(formData.userName)} />
+                <input type="text" value={formData.userName} onChange={e => updateFormData({ userName: e.target.value })} placeholder="Point of Contact" className={getFieldClasses(formData.userName)} />
               </div>
-              <CustomSelect label="Leadership Tier" value={formData.jobTitle} onChange={v => updateFormData({ jobTitle: v as JobTitle })} options={['Founder / Owner', 'Director', 'Operations Manager', 'Sales Manager', 'Marketing Manager', 'Other']} />
+              <CustomSelect label="Job Title" value={formData.jobTitle} onChange={v => updateFormData({ jobTitle: v as JobTitle })} options={['Founder / Owner', 'Director', 'Operations Manager', 'Sales Manager', 'Marketing Manager', 'Other']} />
             </div>
           </div>
         );
       case 3:
         return (
           <div className={scene}>
-            {header(<Mail size={16} />, "Phase 02 / Sync", "Direct Channels", "Where should we send your results?")}
+            {header(<Mail size={16} />, "Section 2", "Contact Details", "Establishing secure communication channels.")}
             <div className="space-y-4">
               <div className={inputWrapper}>
                 <label className={labelStyles}>Work Email</label>
@@ -93,12 +93,12 @@ export const FormStep: React.FC<FormStepProps> = ({
                 <input type="email" value={formData.email} onChange={e => updateFormData({ email: e.target.value })} placeholder="email@company.com.au" className={getFieldClasses(formData.email)} />
               </div>
               <div className={inputWrapper}>
-                <label className={labelStyles}>Contact Number</label>
+                <label className={labelStyles}>Phone Number</label>
                 <Phone size={16} className={getIconClasses(formData.phone)} />
                 <input type="tel" value={formData.phone} onChange={e => updateFormData({ phone: e.target.value })} placeholder="+61..." className={getFieldClasses(formData.phone)} />
               </div>
               <div className={inputWrapper}>
-                <label className={labelStyles}>Website</label>
+                <label className={labelStyles}>Website (Optional)</label>
                 <Globe size={16} className={getIconClasses(formData.website)} />
                 <input type="url" value={formData.website} onChange={e => updateFormData({ website: e.target.value })} placeholder="https://..." className={getFieldClasses(formData.website)} />
               </div>
@@ -108,21 +108,21 @@ export const FormStep: React.FC<FormStepProps> = ({
       case 4:
         return (
           <div className={scene}>
-            {header(<BarChart3 size={16} />, "Phase 03 / Scale", "Market Volume", "Contextualizing your automation ROI.")}
+            {header(<BarChart3 size={16} />, "Section 3", "Business Details", "Quantifying the scale of your operations.")}
             <div className="space-y-8">
-              <CustomSelect label="Personnel Count" value={formData.companySize} onChange={v => updateFormData({ companySize: v as CompanySize })} options={['Solo / Freelancer', 'Small Team (2–10)', 'Growing Business (11–50)', 'Mid-size (51–200)', 'Enterprise (200+)']} />
-              <CustomSelect label="Annual Revenue (AUD)" value={formData.revenue} onChange={v => updateFormData({ revenue: v as MonthlyRevenue })} options={['Just Starting (< $10k)', 'Early Stage ($10k–$50k)', 'Growing ($50k–$200k)', 'Established ($200k–$1M)', 'Scaled ($1M+)']} />
+              <CustomSelect label="Company Size" value={formData.companySize} onChange={v => updateFormData({ companySize: v as CompanySize })} options={['Solo / Freelancer', 'Small Team (2–10)', 'Growing Business (11–50)', 'Mid-size (51–200)', 'Enterprise (200+)']} />
+              <CustomSelect label="Monthly Revenue (AUD)" value={formData.revenue} onChange={v => updateFormData({ revenue: v as MonthlyRevenue })} options={['Just Starting (< $10k)', 'Early Stage ($10k–$50k)', 'Growing ($50k–$200k)', 'Established ($200k–$1M)', 'Scaled ($1M+)']} />
             </div>
           </div>
         );
       case 5:
         return (
           <div className={scene}>
-            {header(<Settings2 size={16} />, "Phase 04 / Audit", "Current Stack", "Select the tools you currently use.")}
+            {header(<Settings2 size={16} />, "Section 4", "Current Stack", "Tools currently powering your workflow.")}
             <div className="grid grid-cols-1 gap-3 mb-10">
-              {['CRM Tools', 'Email Automation', 'WhatsApp Business', 'Google Sheets / Excel', 'Zapier / Make', 'Manual Processes'].map(tool => (
+              {['CRM (HubSpot, Salesforce, etc)', 'Email Marketing (Mailchimp, ActiveCampaign, etc)', 'WhatsApp Business', 'Google Sheets / Excel', 'Zapier / Make', 'None – Manual Process', 'Other'].map(tool => (
                 <button key={tool} onClick={() => toggleTech(tool)} className={`px-6 h-[58px] text-left rounded-full border-2 transition-all duration-300 flex items-center justify-between active:scale-[0.97] ${formData.techStack.includes(tool) ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white border-slate-100 hover:border-slate-300 text-slate-500'}`}>
-                  <span className="text-[14px] font-bold">{tool}</span>
+                  <span className="text-[13px] font-bold">{tool}</span>
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${formData.techStack.includes(tool) ? 'bg-white' : 'bg-slate-50'}`}>
                     {formData.techStack.includes(tool) && <Check size={10} strokeWidth={4} className="text-slate-900" />}
                   </div>
@@ -134,29 +134,29 @@ export const FormStep: React.FC<FormStepProps> = ({
       case 6:
         return (
           <div className={scene}>
-            {header(<Target size={16} />, "Phase 05 / Diagnostic", "Operational Pain", "What is slowing you down today?")}
+            {header(<Target size={16} />, "Section 5", "Automation Needs", "Isolating the most critical bottlenecks.")}
             <div className="space-y-8">
-              <CustomSelect label="Primary Bottleneck" value={formData.primaryPainPoint} onChange={v => updateFormData({ primaryPainPoint: v })} options={['Lead follow-up too slow', 'Manual data entry', 'Losing leads', 'Overwhelmed support', 'Admin work', 'Scaling issues']} />
-              <CustomSelect label="Priority Target" value={formData.firstAutomationTarget} onChange={v => updateFormData({ firstAutomationTarget: v })} options={['Lead capture', 'CRM workflows', 'Onboarding', 'Customer Support', 'Payments', 'Internal Ops']} />
+              <CustomSelect label="Primary Pain Point" value={formData.primaryPainPoint} onChange={v => updateFormData({ primaryPainPoint: v })} options={['Lead follow-up takes too long', 'Manual data entry killing productivity', 'Losing leads due to slow response', 'Customer support overwhelming team', 'Repetitive admin work', 'Scaling without hiring more staff']} />
+              <CustomSelect label="What would you automate first?" value={formData.firstAutomationTarget} onChange={v => updateFormData({ firstAutomationTarget: v })} options={['Lead capture & follow-up', 'Sales pipeline & CRM', 'Customer onboarding', 'Customer support', 'Invoicing & payments', 'Internal workflows']} />
             </div>
           </div>
         );
       case 7:
         return (
           <div className={scene}>
-            {header(<Calendar size={16} />, "Phase 06 / Timeline", "Strategic Fit", "Your implementation window.")}
+            {header(<Calendar size={16} />, "Section 6", "Timeline & Budget", "Defining your strategic execution window.")}
             <div className="space-y-8">
-              <CustomSelect label="Execution Horizon" value={formData.timeline} onChange={v => updateFormData({ timeline: v as ImplementationTimeline })} options={['Urgent – This month', 'Soon – 1-2 months', 'Planning – 3-6 months', 'Researching']} />
-              <CustomSelect label="Budget Allocation" value={formData.budget} onChange={v => updateFormData({ budget: v as BudgetRange })} options={['Testing Phase ($500 – $2,000)', 'Starter Investment ($2,000 – $5,000)', 'Serious Implementation ($5,000 – $15,000)', 'Enterprise Solution ($15,000+)', 'Not sure – depends on ROI']} />
+              <CustomSelect label="Implementation Timeline" value={formData.timeline} onChange={v => updateFormData({ timeline: v as ImplementationTimeline })} options={['Urgent – Need solution this month', 'Soon – Within 1–2 months', 'Planning – 3–6 months', 'Exploring – Just researching']} />
+              <CustomSelect label="Budget Range (AUD)" value={formData.budget} onChange={v => updateFormData({ budget: v as BudgetRange })} options={['Testing Phase ($500 – $2,000)', 'Starter Investment ($2,000 – $5,000)', 'Serious Implementation ($5,000 – $15,000)', 'Enterprise Solution ($15,000+)', 'Not sure – depends on ROI']} />
             </div>
           </div>
         );
       case 8:
         return (
           <div className={scene}>
-            {header(<ShieldCheck size={16} />, "Final Stage", "Data Protocol", "Secure your diagnostic brief.")}
+            {header(<ShieldCheck size={16} />, "Section 7", "Consent Protocol", "Finalizing your diagnostic report.")}
             <div className="space-y-5 pb-8">
-              {[{ k: 'consentTransactional', t: 'Authorize brief generation.', h: 'Required for processing.' }, { k: 'consentMarketing', t: 'AI Industry Insights.', h: 'Optional monthly updates.' }].map(c => (
+              {[{ k: 'consentTransactional', t: 'I agree to receive transactional messages (appointments, updates, etc).', h: 'Required for processing.' }, { k: 'consentMarketing', t: 'I agree to receive marketing and follow-up messages.', h: 'Optional monthly insights.' }].map(c => (
                 <div key={c.k} className="group">
                   <button onClick={() => updateFormData({ [c.k]: !formData[c.k as keyof FormData] })} className={`w-full p-5 rounded-[2rem] border-2 transition-all duration-300 flex items-center gap-5 active:scale-[0.98] text-left ${formData[c.k as keyof FormData] ? 'bg-slate-900 border-slate-900 text-white shadow-lg' : 'bg-white border-slate-100 hover:border-slate-300 text-slate-500'}`}>
                     <div className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 transition-all ${formData[c.k as keyof FormData] ? 'bg-white' : 'bg-slate-100 group-hover:bg-slate-200'}`}>
