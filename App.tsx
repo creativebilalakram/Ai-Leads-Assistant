@@ -40,22 +40,25 @@ const App: React.FC = () => {
   const progress = useMemo(() => step === 1 ? 0 : step > 8 ? 100 : ((step - 1) / (TOTAL_STEPS - 1)) * 100, [step]);
 
   return (
-    <div className="h-[100dvh] w-full flex items-center justify-center p-0 md:p-12 overflow-hidden bg-transparent">
+    <div className="h-[100dvh] w-full flex items-center justify-center p-0 md:p-8 lg:p-12 overflow-hidden bg-transparent">
       {step > 1 && step < 9 && <ProgressHeader progress={progress} />}
       
-      <main className="w-full max-w-xl h-full md:h-[800px] md:max-h-[85vh] bg-white/70 backdrop-blur-3xl md:bg-white/80 md:rounded-[2.5rem] md:border md:border-white/50 md:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] relative flex flex-col animate-fade-up overflow-hidden">
-        {step === 1 && <WelcomeStep onStart={nextStep} />}
-        {step >= 2 && step <= 8 && (
-          <FormStep
-            step={step}
-            formData={formData}
-            updateFormData={updateFormData}
-            onNext={step === 8 ? handleSubmit : nextStep}
-            onBack={prevStep}
-            isSubmitting={isSubmitting}
-          />
-        )}
-        {step === 9 && <SuccessStep formData={formData} />}
+      {/* Box animation removed as requested; only internal content animates now */}
+      <main className="w-full max-w-xl h-full md:h-[800px] md:max-h-[85vh] bg-white/80 backdrop-blur-3xl md:rounded-[3rem] md:border md:border-white/60 md:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] relative flex flex-col overflow-hidden">
+        <div key={step} className="h-full w-full flex flex-col overflow-hidden">
+          {step === 1 && <WelcomeStep onStart={nextStep} />}
+          {step >= 2 && step <= 8 && (
+            <FormStep
+              step={step}
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={step === 8 ? handleSubmit : nextStep}
+              onBack={prevStep}
+              isSubmitting={isSubmitting}
+            />
+          )}
+          {step === 9 && <SuccessStep formData={formData} />}
+        </div>
       </main>
     </div>
   );
